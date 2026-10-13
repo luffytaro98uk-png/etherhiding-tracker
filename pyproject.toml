@@ -14,3 +14,8 @@ dependencies = [
     "rlp>=4.0.0",
     "eth-utils",
 ]
+
+[project.urls]
+Homepage = "https://github.com/luffytaro98uk-png/etherhiding-tracker"
+Repository = "https://github.com/luffytaro98uk-png/etherhiding-tracker"
+Issues = "https://github.com/luffytaro98uk-png/etherhiding-tracker/issues"
