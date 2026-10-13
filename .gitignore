@@ -1,0 +1,10 @@
+﻿.env
+.venv/
+__pycache__/
+*.pyc
+contract_bytecode.hex
+deployed_contracts.txt
+monitor_state.json
+monitor_alerts.log
+*.hex
+*.log
