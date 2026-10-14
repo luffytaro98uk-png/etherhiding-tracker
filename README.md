@@ -1,49 +1,41 @@
-EtherHiding Contract Tracker
-A defensive tool for detecting and tracking EtherHiding malware infrastructure on the Polygon blockchain.
+# EtherHiding Contract Tracker
+
+A defensive tool for detecting and tracking [EtherHiding](https://www.guidepointsecurity.com/blog/etherhiding-exposed-deep-dive/) malware infrastructure on the Polygon blockchain.
 
 EtherHiding is a technique where malware resolves its command-and-control (C2) address by reading a smart contract on a public blockchain instead of a hardcoded domain. This tool fingerprints such contracts, reconstructs the operator's full deployment history, and extracts historical payloads from transaction calldata.
 
-What It Does
-Event scanning — detects C2 rotations by scanning for the operator's specific event topic
+## What It Does
 
-Contract fingerprinting — classifies any address against four independent on-chain signals
+- **Event scanning** — detects C2 rotations by scanning for the operator's specific event topic
+- **Contract fingerprinting** — classifies any address against four independent on-chain signals
+- **Wallet pivot** — deterministically derives every contract a wallet has ever deployed, using only its nonce
+- **Calldata extraction** — recovers historical payloads from `setData` transaction calldata without needing an archive node
+- **State monitor** — watches the 11 Template B contracts and alerts on state changes
 
-Wallet pivot — deterministically derives every contract a wallet has ever deployed, using only its nonce
+## Findings
 
-Calldata extraction — recovers historical payloads from setData transaction calldata without needing an archive node
-
-State monitor — watches the 11 Template B contracts and alerts on state changes
-
-Findings
 This project reproduces and extends GuidePoint Security's September 2026 EtherHiding investigation. Key results:
 
-15 contracts across 3 template generations confirmed via an indexer-free wallet-pivot technique using only Alchemy's free tier.
+- **15 contracts** across 3 template generations confirmed via an indexer-free wallet-pivot technique using only Alchemy's free tier.
+- **Setter selector `0x47064d6a` (`setData(string)`) is confirmed** by decoding transaction calldata.
+- **Full write history recovered from calldata** without an archive node:
+  - `0x5C4576E2` was written to three times over 77 days.
+  - `0xFad3F51f` was written three times within one hour.
+  - Four of the five active Template B contracts received exactly one write at deployment.
+- **Multi-ciphertext cryptanalysis** rules out repeating-key XOR. The payloads use per-write keys, consistent with AES-CTR/CBC.
+- **The "reserve slot awaiting activation" hypothesis is refuted** — writes occur at or near deployment, not weeks later.
 
-Setter selector 0x47064d6a (setData(string)) is confirmed by decoding transaction calldata.
+Full detail is in [REPORT.md](./REPORT.md).
 
-Full write history recovered from calldata without an archive node:
+## Requirements
 
-0x5C4576E2 was written to three times over 77 days.
+- Python 3.10 or newer
+- A free [Alchemy](https://dashboard.alchemy.com) account with a Polygon Mainnet app enabled
+- No paid APIs required
 
-0xFad3F51f was written three times within one hour.
+## Installation
 
-Four of the five active Template B contracts received exactly one write at deployment.
-
-Multi-ciphertext cryptanalysis rules out repeating-key XOR. The payloads use per-write keys, consistent with AES-CTR/CBC.
-
-The "reserve slot awaiting activation" hypothesis is refuted — writes occur at or near deployment, not weeks later.
-
-Full detail is in REPORT.md.
-
-Requirements
-Python 3.10 or newer
-
-A free Alchemy account with a Polygon Mainnet app enabled
-
-No paid APIs required
-
-Installation
-bash
+```bash
 git clone https://github.com/luffytaro98uk-png/etherhiding-tracker.git
 cd etherhiding-tracker
 
@@ -94,7 +86,7 @@ C	1441 B	0x3bc5de30, 0x73d4a13a, 0x8da5cb5b, 0xf2fde38b	Getter returns exactly 6
 The setter selector for Template B is 0x47064d6a = setData(string). Any transaction from an operator wallet calling this selector on a Template B contract is a high-confidence operator action.
 
 Known Operator Wallets
-0xd802C9427ce416B9DAb2db5aDD76EfAA6d9d826a (Wallet 1)
+0xd802C9427ce416B9DAb2db5aDD76EfAEfA6d9d826a (Wallet 1)
 
 0x6a6e177dcf992ac16f7367c14b26a3cf4775dfde (Wallet 2)
 
