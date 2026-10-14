@@ -19,8 +19,8 @@ dive and expanded to cover the operator's full deployment history.
 ## Note on Novelty and Confidence
 
 This work reproduces and extends GuidePoint Security's September 2026
-EtherHiding investigation. Most structural findings — 15 contracts, 3
-templates, 2 operator wallets, and the wallet-pivot methodology — are
+EtherHiding investigation. Most structural findings - 15 contracts, 3
+templates, 2 operator wallets, and the wallet-pivot methodology - are
 replications of their published analysis. The value of replication is that
 it confirms the original findings are accurate and provides a free,
 indexer-independent implementation.
@@ -56,12 +56,12 @@ distinguish these hypotheses.
 **Key findings:**
 
 1. All 15 contracts deployed by the two operator wallets were independently
-   rediscovered using deterministic address derivation from wallet nonces —
+   rediscovered using deterministic address derivation from wallet nonces -
    no indexed API or paid service required.
 2. The three template generations described in the GuidePoint report were
    confirmed and characterized by their function selectors, bytecode sizes,
    and payload formats.
-3. **The 11 Template B contracts — whose purpose GuidePoint explicitly left
+3. **The 11 Template B contracts - whose purpose GuidePoint explicitly left
    unresolved — show a mixed state:** six return empty payloads and five
    return 64–80 byte payloads as of block 95,470,427.
 4. Template C is a hybrid design that shares selectors with both prior
