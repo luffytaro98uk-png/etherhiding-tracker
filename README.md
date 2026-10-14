@@ -61,7 +61,7 @@ Usage
 Unified CLI
 bash
 python cli.py fingerprint 0xde2d34339c279a7a79bc4fc1c4f37d3c055211b7
-python cli.py wallet 0xd802C9427ce416B9DAb2db5aDD76EfAA6d9d826a
+python cli.py wallet 0xd802C9427ce416B9DAb2db5aDD76EfAEfA6d9d826aA6d9d826a
 python cli.py scan --blocks 1000
 python cli.py templates
 python cli.py monitor
@@ -86,7 +86,7 @@ C	1441 B	0x3bc5de30, 0x73d4a13a, 0x8da5cb5b, 0xf2fde38b	Getter returns exactly 6
 The setter selector for Template B is 0x47064d6a = setData(string). Any transaction from an operator wallet calling this selector on a Template B contract is a high-confidence operator action.
 
 Known Operator Wallets
-0xd802C9427ce416B9DAb2db5aDD76EfAEfA6d9d826a (Wallet 1)
+0xd802C9427ce416B9DAb2db5aDD76EfAEfA6d9d826aEfA6d9d826a (Wallet 1)
 
 0x6a6e177dcf992ac16f7367c14b26a3cf4775dfde (Wallet 2)
 
