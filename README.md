@@ -4,15 +4,15 @@ A defensive tool for detecting and tracking EtherHiding malware infrastructure o
 EtherHiding is a technique where malware resolves its command-and-control (C2) address by reading a smart contract on a public blockchain instead of a hardcoded domain. This tool fingerprints such contracts, reconstructs the operator's full deployment history, and extracts historical payloads from transaction calldata.
 
 What It Does
-Event scanning - detects C2 rotations by scanning for the operator's specific event topic
+Event scanning — detects C2 rotations by scanning for the operator's specific event topic
 
-Contract fingerprinting - classifies any address against four independent on-chain signals
+Contract fingerprinting — classifies any address against four independent on-chain signals
 
-Wallet pivot - deterministically derives every contract a wallet has ever deployed, using only its nonce
+Wallet pivot — deterministically derives every contract a wallet has ever deployed, using only its nonce
 
-Calldata extraction - recovers historical payloads from setData transaction calldata without needing an archive node
+Calldata extraction — recovers historical payloads from setData transaction calldata without needing an archive node
 
-State monitor - watches the 11 Template B contracts and alerts on state changes
+State monitor — watches the 11 Template B contracts and alerts on state changes
 
 Findings
 This project reproduces and extends GuidePoint Security's September 2026 EtherHiding investigation. Key results:
@@ -31,7 +31,7 @@ Four of the five active Template B contracts received exactly one write at deplo
 
 Multi-ciphertext cryptanalysis rules out repeating-key XOR. The payloads use per-write keys, consistent with AES-CTR/CBC.
 
-The "reserve slot awaiting activation" hypothesis is refuted - writes occur at or near deployment, not weeks later.
+The "reserve slot awaiting activation" hypothesis is refuted — writes occur at or near deployment, not weeks later.
 
 Full detail is in REPORT.md.
 
@@ -106,12 +106,12 @@ Historical state reads require an archive node. Transaction calldata analysis (v
 The tool identifies structural infrastructure, not the specific C2 domains currently in use.
 
 References
-GuidePoint Security - EtherHiding Exposed
+GuidePoint Security — EtherHiding Exposed
 
-DeFi Planet - Why EtherHiding May Be Dangerous
+DeFi Planet — Why EtherHiding May Be Dangerous
 
 License
-MIT - use freely for defensive security research.
+MIT — use freely for defensive security research.
 
 Contributing
 If you observe activation of any previously-empty Template B contract, or if you successfully decrypt a payload, please open an issue with the contract address, block number, and any recovered plaintext.
