@@ -20,6 +20,57 @@ replications of their published analysis. The value of replication is that
 it confirms the original findings are accurate and provides a free,
 indexer-independent implementation.
 
+### Course Corrections During This Investigation
+
+Two interpretations were proposed during the course of this work and later
+refuted by additional evidence. They are documented here so the reasoning
+trail is transparent.
+
+**Correction 1 — "Template B contracts are dormant reserve slots."**
+
+The initial observation was based on a state snapshot: when the 11
+Template B contracts were first queried, 6 returned empty payloads and 5
+returned 64–80 byte payloads. The interpretation proposed was that the
+empty contracts were reserve slots awaiting future activation (H1 in the
+hypothesis table).
+
+This interpretation was refuted by decoding the setData calldata for every
+write. The evidence showed that 4 of the 5 active contracts were written to
+within minutes of deployment — not weeks or months later. A "reserve slot
+awaiting activation" model predicts delayed writes; the actual pattern is
+immediate writes with subsequent rotation on one contract only. The correct
+description of the 6 empty contracts is most likely "deployed but never
+written to."
+
+**Correction 2 — "The C2 domains can be recovered by cryptanalysis."**
+
+After discovering that the payloads are base64-encoded binary, the initial
+hypothesis was that a known-plaintext attack against fixed URL markers
+would recover the encryption key — following the approach GuidePoint
+described.
+
+This hypothesis was refuted by three tests:
+
+1. Applying the two known campaign keys (`$%)W$fgl34`, `!sdf$&G321`)
+   produced no readable output.
+2. Crib-dragging `https://`, `/UpdateCheck/`, and common TLDs across all
+   payloads produced no coherent candidate.
+3. Multi-ciphertext XOR (`C1 XOR C2 = P1 XOR P2`) on same-contract write
+   pairs produced random-looking output (25–40% printable, statistically
+   indistinguishable from noise).
+
+The conclusion is that the payloads use per-write keys. The specific C2
+domains remain unrecovered and are not recoverable from on-chain data
+alone.
+
+**Why documenting this matters.**
+
+The final report reflects the corrected interpretation, not the initial
+one. Publishing only the corrected version would hide the reasoning that
+led there; publishing only the initial version would present a hypothesis
+as a finding. Both versions are shown so readers can see the evidence that
+changed the conclusion.
+
 Three elements are genuinely new:
 
 An indexer-free implementation of the wallet-pivot technique using
