@@ -4,6 +4,15 @@ A defensive tool for detecting and tracking [EtherHiding](https://www.guidepoint
 
 EtherHiding is a technique where malware resolves its command-and-control (C2) address by reading a smart contract on a public blockchain instead of a hardcoded domain. This tool fingerprints such contracts, reconstructs the operator's full deployment history, and extracts historical payloads from transaction calldata.
 
+## Case Studies
+
+This toolset has been applied to two investigations:
+
+- **[GuidePoint replication (2026-10)](./REPORT.md)** — reproduced the EtherHiding contract enumeration published by GuidePoint Security
+- **[cocova.co operator (2026-10-15)](./CASE_cocova.md)** — mapped a live operator's full infrastructure, recovered the XOR key, and discovered a new C2 domain
+
+See [`watchlist.json`](./watchlist.json) for the current list of tracked contracts and operator wallets.
+
 ## What It Does
 
 - **Event scanning** - detects C2 rotations via the operator's event topic
