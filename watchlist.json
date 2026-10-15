@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "description": "Watchlist of malicious smart contracts identified by this toolset",
+  "contracts": [
+    {
+      "address": "0x08207B087F61d7e95E441E15fd6d40BEfd6eD308",
+      "chain": "polygon",
+      "chain_id": 137,
+      "label": "cocova case — plaintext C2 storage",
+      "getter": "0x77343408",
+      "storage_slot": 1,
+      "encoding": "plaintext_url",
+      "discovered": "2026-10-15"
+    },
+    {
+      "address": "0x4af8048EdfE4523953E9907528BF5Cef7Fa8db09",
+      "chain": "polygon",
+      "chain_id": 137,
+      "label": "cocova case — XOR-encrypted C2 storage",
+      "getter": "0x7d0c8f7a",
+      "encoding": "abi_string",
+      "cipher": {
+        "type": "repeating_xor",
+        "key_hex": "341d91b1693dbbd10877bed632fbd228",
+        "period": 16
+      },
+      "discovered": "2026-10-15"
+    },
+    {
+      "address": "0x56384Ef15734CcE9026D9e75ac3bE616513fe2Ae",
+      "chain": "polygon",
+      "chain_id": 137,
+      "label": "cocova case — Template A variant (dormant)",
+      "getter": "0xb68d1809",
+      "discovered": "2026-10-15"
+    },
+    {
+      "address": "0x2B2e30dA517b22a20Eb367a36b9cA725cf93e9E5",
+      "chain": "polygon",
+      "chain_id": 137,
+      "label": "cocova case — control contract",
+      "discovered": "2026-10-15"
+    }
+  ],
+  "operator_wallets": [
+    {
+      "address": "0x34c15320d6E8f59f1b66f6c191Aaa7F87B894B66",
+      "label": "cocova case operator",
+      "discovered": "2026-10-15"
+    }
+  ]
+}

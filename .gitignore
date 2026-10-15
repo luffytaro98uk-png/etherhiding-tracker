@@ -8,3 +8,5 @@ monitor_state.json
 monitor_alerts.log
 *.hex
 *.log
+write_history_full.txt
+monitor_alerts.log
