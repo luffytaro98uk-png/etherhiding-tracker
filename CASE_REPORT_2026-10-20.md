@@ -13,6 +13,58 @@ Wallet `0xCaf2C54E400437da717cF215181B170F65187aBf` has deployed **195 EtherHidi
 
 The operator shares the Template A selector set with the previously documented cocova case (`0xb68d1809`, `0xb249cd2d`, `0xe096a091`, `0xf851a440`), indicating a common codebase.
 
+
+
+
+## Loader Fingerprint Correlation (2026-10-20)
+
+### VirusTotal Captures
+
+22 HTML captures referencing contract `0xB6bC9e1D` were submitted to VirusTotal on 2026-10-08. All 22 reference the primary contract. 13 of 22 also reference the secondary contract `0xf70730A4`. The captures come from four compromised WordPress sites hosting injected SEO-spam pages:
+
+- southeastconsultancy[.]com (9 captures)
+- singitwithmj[.]com (9 captures, primary contract only)
+- abdulwahabembroidery[.]com (3 captures)
+- fortezzaglass[.]com (1 capture)
+
+The observation that `singitwithmj[.]com` carries only the primary contract while the other three carry both suggests two loader builds.
+
+### Observed Exposure
+
+Site `indianrailwayrecruitment[.]in` was reached via search on 2026-10-15. The probable loader carrier (`wp-content/litespeed/js/a97619a149b8a8376ee8b94b23235e9b[.]js`) loaded 4 seconds before an RPC burst. Loader code was not obtained. Outcome: loader executed in the browser; no TDS, lure, or payload delivery observed. Domain flagged by 5 vendors as of 2026-10-02.
+
+### RPC Fallback Fingerprint
+
+**Set B** (this operator, `0xCaf2C54E`):
+
+    1rpc[.]io/matic
+    polygon.gateway.tenderly[.]co
+    rpc-mainnet.matic.quiknode[.]pro
+    polygon-mainnet.public.blastapi[.]io
+    rpc.ankr[.]com/polygon
+    polygon-bor-rpc.publicnode[.]com
+    polygon-public.nodies[.]app
+    polygon.drpc[.]org
+
+**Set A** (cocova operator, `0x34c15320`):
+
+    polygon-pokt.nodies[.]app
+    polygon-bor-rpc.publicnode[.]com
+    polygon.lava[.]build
+    polygon.drpc[.]org
+    polygon-public.nodies[.]app
+    polygon.rpc.subquery[.]network
+
+Only 3 providers overlap. Two distinct operators, shared codebase.
+
+### Detection Rule
+
+Browser DNS (or proxy requests with a page referer) to three or more of the Set B providers within a few minutes. The referer on the RPC requests identifies the compromised site.
+
+### Confidence
+
+The site-to-contract link for the observed exposure rests on the loader fingerprint (medium-high confidence). The direct detonation of `pro-comfort[.]pl` (external, unverified) shows the same contract directly. If verified, this elevates confidence to high.
+
 ---
 
 ## Confirmed Infection Chain (VirusTotal, 2026-10-19)
