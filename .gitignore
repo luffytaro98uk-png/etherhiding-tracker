@@ -10,3 +10,10 @@ monitor_alerts.log
 *.log
 write_history_full.txt
 monitor_alerts.log
+all_contracts_full.txt
+all_contracts_slots.json
+all_urls.txt
+dump_output.txt
+wallet_updated.txt
+domains.txt
+live_urls.txt

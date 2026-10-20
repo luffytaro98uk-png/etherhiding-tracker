@@ -89,6 +89,8 @@ def fingerprint_contract(address):
     hexcode = code.hex()
     has_getter_a = C2_GETTER_A in hexcode
     has_getter_bc = C2_GETTER_BC in hexcode
+    has_admin = 'f851a440' in hexcode
+    has_variant = 'e096a091' in hexcode
     r['has_c2_getter'] = has_getter_a or has_getter_bc
     r['has_ownable'] = OWNER_SEL in hexcode and TRANSFER_SEL in hexcode
 
@@ -121,6 +123,8 @@ def fingerprint_contract(address):
 
     if has_getter_a and r['has_ownable'] and isinstance(r['blob_len'], int) and r['blob_len'] > 20:
         r['verdict'] = '*** CONFIRMED ETHERHIDING (Template A) ***'
+    elif has_getter_a and has_admin and has_variant and isinstance(r['blob_len'], int) and r['blob_len'] > 20:
+        r['verdict'] = '*** CONFIRMED ETHERHIDING (Template A variant) ***'
     elif has_getter_bc and r['bytecode_size'] == 1856:
         if r['blob_len'] == 0:
             r['verdict'] = 'EtherHiding Template B - DORMANT'
