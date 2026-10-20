@@ -9,7 +9,7 @@
 
 EtherHiding is a technique where malware retrieves its C2 address by reading a smart contract on a public blockchain - no hardcoded domain, no takedown surface. This tool fingerprints those contracts, reconstructs the operator deployment history, decrypts stored payloads, and tracks state changes.
 
-> **Case study in production:** Used to map a live cocova.co operator on Polygon - 4 contracts, 7 months of history, and a recovered XOR key. [Read the case](./CASE_cocova.md).
+> **Latest case:** A 195-contract EtherHiding factory mapped on Polygon - 68 live C2 domains, 2 confirmed C2 IPs, and a verified infection chain delivering `helsinki[.]exe`. [Read the case](./CASE_REPORT_2026-10-20.md).
 
 ---
 
@@ -39,9 +39,9 @@ If that prints an intelligence summary of 15 known contracts, you are set.
 
 ---
 
-## Findings
+## Case Studies
 
-Two investigations are documented in this repo. Both are reproducible from public data.
+This toolset has been applied to three investigations. See [CASES.md](./CASES.md) for the full index.
 
 ### 1. GuidePoint Replication (2026-10)
 
@@ -52,7 +52,7 @@ Reproduced GuidePoint Security's EtherHiding enumeration using an indexer-free w
 - **Full write history** recovered without an archive node
 - **Multi-ciphertext cryptanalysis** rules out repeating-key XOR
 
-See [REPORT.md](./REPORT.md) for the full report.
+See [REPORT.md](./REPORT.md).
 
 ### 2. cocova.co Operator (2026-10-15)
 
@@ -64,6 +64,19 @@ Mapped a live EtherHiding operator's complete infrastructure.
 - **Technical link to GuidePoint campaign** via shared selectors
 
 See [CASE_cocova.md](./CASE_cocova.md) and [CASE_REPORT_2026-10-15.md](./CASE_REPORT_2026-10-15.md).
+
+### 3. 195-Contract Factory (2026-10-20)
+
+Mapped a large-scale EtherHiding operator using the ErrTraffic/Cruciferra malware-as-a-service platform.
+
+- **195 contracts** across 4 template generations
+- **68 live C2 domains** across 9 TLDs
+- **2 hardcoded IPs**, both independently confirmed on VirusTotal as ClearFake/ClickFix infrastructure
+- **Confirmed infection chain:** `pro-comfort[.]pl` → `0xB6bC9e1D` → `helsinki[.]exe` → `fortuna-qwont[.]club`
+- **Payload:** Windows infostealer delivered via password-protected ZIP (password: `warden`)
+- **Attribution:** ErrTraffic/Cruciferra MaaS
+
+See [CASE_REPORT_2026-10-20.md](./CASE_REPORT_2026-10-20.md).
 
 ---
 
@@ -154,6 +167,8 @@ Expected output:
 | `analyze.py` | Selector extraction and storage dump |
 | `probe_templates.py` | Function call probing |
 | `decode_template_c.py` | Payload extraction |
+| `dump_all_slots.py` | Dump slot 1 of all contracts from a wallet |
+| `decode_2452.py` | ABI/base64/XOR decode for encrypted families |
 
 ---
 
@@ -164,6 +179,7 @@ Known EtherHiding templates observed in the wild:
 | Template | Bytecode | Key Selectors | State Signal |
 |---|---|---|---|
 | A | 2766-2786 B | `0xb68d1809`, `0xb249cd2d`, `0x8da5cb5b`, `0xf2fde38b` | Emits event `0x868f5f91...` on rotation |
+| A variant | 1489-2451 B | `0xb68d1809`, `0xb249cd2d`, `0xe096a091`, `0xf851a440` | Admin-proxy pattern; plaintext or encrypted storage |
 | B | 1856 B | `0x3bc5de30`, `0x47064d6a` | Getter returns 0 bytes when unwritten |
 | C | 1441 B | `0x3bc5de30`, `0x73d4a13a`, `0x8da5cb5b`, `0xf2fde38b` | Getter returns exactly 60 bytes |
 
@@ -173,19 +189,7 @@ Known EtherHiding templates observed in the wild:
 
 ## Watchlist
 
-The watchlist.json file is the shared list of tracked contracts and operator wallets. Contribute new entries via pull request.
-
-    {
-      "contracts": [
-        {
-          "address": "0x4af8048EdfE4523953E9907528BF5Cef7Fa8db09",
-          "chain": "polygon",
-          "label": "cocova case - XOR-encrypted C2 storage",
-          "getter": "0x7d0c8f7a",
-          "cipher": { "type": "repeating_xor", "period": 16 }
-        }
-      ]
-    }
+The [watchlist.json](./watchlist.json) file is the shared list of tracked contracts, operator wallets, and C2 IPs. Contribute new entries via pull request.
 
 ---
 
@@ -203,6 +207,7 @@ The watchlist.json file is the shared list of tracked contracts and operator wal
 
 - [GuidePoint Security - EtherHiding Exposed](https://www.guidepointsecurity.com/blog/etherhiding-exposed-deep-dive/)
 - [DeFi Planet - Why EtherHiding May Be Dangerous](https://defi-planet.com/2026/04/why-etherhiding-may-be-one-of-the-most-dangerous-crypto-attacks-youve-ever-heard-of/)
+- [eSentire - ErrTraffic and Cruciferra MaaS](https://www.esentire.com/blog/malware-as-a-service-cocktail-errtraffic-and-cruciferra-killing-your-edr-since-2025)
 
 ---
 
