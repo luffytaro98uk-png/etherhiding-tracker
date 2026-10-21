@@ -6,7 +6,7 @@
       "address": "0x08207B087F61d7e95E441E15fd6d40BEfd6eD308",
       "chain": "polygon",
       "chain_id": 137,
-      "label": "cocova case — plaintext C2 storage",
+      "label": "cocova case - plaintext C2 storage",
       "getter": "0x77343408",
       "storage_slot": 1,
       "encoding": "plaintext_url",
@@ -16,7 +16,7 @@
       "address": "0x4af8048EdfE4523953E9907528BF5Cef7Fa8db09",
       "chain": "polygon",
       "chain_id": 137,
-      "label": "cocova case — XOR-encrypted C2 storage",
+      "label": "cocova case - XOR-encrypted C2 storage",
       "getter": "0x7d0c8f7a",
       "encoding": "abi_string",
       "cipher": {
@@ -30,7 +30,7 @@
       "address": "0x56384Ef15734CcE9026D9e75ac3bE616513fe2Ae",
       "chain": "polygon",
       "chain_id": 137,
-      "label": "cocova case — Template A variant (dormant)",
+      "label": "cocova case - Template A variant (dormant)",
       "getter": "0xb68d1809",
       "discovered": "2026-10-15"
     },
@@ -38,15 +38,63 @@
       "address": "0x2B2e30dA517b22a20Eb367a36b9cA725cf93e9E5",
       "chain": "polygon",
       "chain_id": 137,
-      "label": "cocova case — control contract",
+      "label": "cocova case - control contract",
       "discovered": "2026-10-15"
+    },
+    {
+      "address": "0xB6bC9e1D0b2fB96Ab7C47E04Cb0BE477410bC1f2",
+      "chain": "polygon",
+      "chain_id": 137,
+      "label": "195-contract factory - confirmed in live infection chain",
+      "getter": "0xb68d1809",
+      "discovered": "2026-10-20"
     }
   ],
   "operator_wallets": [
     {
       "address": "0x34c15320d6E8f59f1b66f6c191Aaa7F87B894B66",
       "label": "cocova case operator",
+      "contracts": 4,
       "discovered": "2026-10-15"
+    },
+    {
+      "address": "0xCaf2C54E400437da717cF215181B170F65187aBf",
+      "label": "195-contract EtherHiding factory (ErrTraffic/Cruciferra MaaS)",
+      "contracts": 195,
+      "generations": 4,
+      "discovered": "2026-10-20"
     }
-  ]
+  ],
+  "ip_c2": [
+    {
+      "ip": "77.239.114.108",
+      "country": "PL",
+      "isp": "Intezio Worldwide Limited",
+      "source": "ThreatFox IOC #1839449",
+      "tags": ["ClearFake", "ClickFix", "ErrTraffic", "etherhiding"]
+    },
+    {
+      "ip": "178.16.52.101",
+      "country": "DE",
+      "isp": "Omegatech LTD",
+      "source": "VirusTotal",
+      "tags": ["ClickFix", "ClearFake", "EtherHiding", "infostealer"]
+    }
+  ],
+  "domains": [
+    "sky.dolcefantasia.us",
+    "mug.crossroadc (truncated)"
+  ],
+  "encrypted_family": {
+    "bytecode_size": 2452,
+    "count": 10,
+    "cipher": "unknown (AES-class)",
+    "status": "locked"
+  },
+  "payload": {
+    "name": "helsinki.exe",
+    "type": "Windows infostealer",
+    "zip_password": "warden",
+    "user_agent": "thriaorstiaocs"
+  }
 }
