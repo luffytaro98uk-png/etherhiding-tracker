@@ -14,7 +14,38 @@ Wallet `0xCaf2C54E400437da717cF215181B170F65187aBf` has deployed **195 EtherHidi
 The operator shares the Template A selector set with the previously documented cocova case (`0xb68d1809`, `0xb249cd2d`, `0xe096a091`, `0xf851a440`), indicating a common codebase.
 
 
+## Active Rotation (2026-10-14 to 2026-10-18)
 
+The operator is currently rotating C2 domains every 1-3 days. The latest writes show a **dual-write pattern**: both the XOR-encrypted contract (`0x4af804`) and the plaintext contract (`0x08207B`) are updated within seconds of each other.
+
+| Date (UTC) | Nonce | Contract | Value |
+|---|---|---|---|
+| 2026-10-14 09:13 | 271 | 0x4af804 | `year.calvinpre...` (truncated) |
+| 2026-10-14 09:58 | 272 | 0x4af804 | `hail.cocova.co` |
+| 2026-10-15 09:04 | 273 | 0x4af804 | `hail.cocova.co` |
+| 2026-10-15 09:42 | 274 | 0x08207B | `hail.cocova.co` (plaintext) |
+| 2026-10-15 09:42 | 275 | 0x4af804 | `hail.cocova.co` |
+| 2026-10-17 11:54 | 276 | 0x4af804 | `mug.crossroadc...` (truncated) |
+| 2026-10-18 09:36 | 277 | 0x4af804 | `sky.dolcefanta...` (truncated) |
+| 2026-10-18 12:53 | 278 | 0x08207B | `sky.dolcefantasia.us` (plaintext) |
+| 2026-10-18 12:53 | 279 | 0x4af804 | `sky.dolcefanta...` (truncated) |
+| 2026-10-18 12:53 | 280 | 0x08207B | `sky.dolcefantasia.us` (plaintext) |
+| 2026-10-18 12:53 | 281 | 0x4af804 | `sky.dolcefanta...` (truncated) |
+
+### New Domains
+
+- `sky.dolcefantasia[.]us` — confirmed from plaintext writes at nonces 278 and 280
+- `mug.crossroadc...` — truncated XOR value, likely `.com` or `.cdn` domain (pending verification)
+
+### Dual-Write Pattern
+
+The operator updates both `0x4af804` (XOR-encrypted) and `0x08207B` (plaintext) within seconds of each other. This suggests a single tooling pipeline that writes to both contracts simultaneously, ensuring the malware can resolve the C2 from either storage method.
+
+The most recent write was **2026-10-18 12:53:53 UTC**. The operator is actively maintaining the infrastructure.
+
+### Rotation Cadence
+
+Writes occur every 1-3 days. The 195-contract factory is not static — the operator continuously updates the active resolver contracts while the remaining ~180 contracts sit dormant as reserve capacity.
 
 ## Loader Fingerprint Correlation (2026-10-20)
 
